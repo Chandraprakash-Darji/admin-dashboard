@@ -15,6 +15,7 @@ import {
     InputBase,
     styled,
     Toolbar,
+    useMediaQuery,
 } from "@mui/material";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
@@ -37,10 +38,14 @@ interface StyledAppBarProps extends AppBarProps {
 
 const StyledToolBar = styled(Toolbar, {
     shouldForwardProp: (prop) => prop !== "open",
-})<StyledAppBarProps>(({ open }) => ({
+})<StyledAppBarProps>(({ theme, open }) => ({
     marginLeft: open ? OpenedWidth : ClosedWidth,
     width: open ? `100%-${OpenedWidth}` : `100%-${ClosedWidth}`,
     padding: "0 10px !important",
+    [theme.breakpoints.down("sm")]: {
+        width: "100%",
+        marginLeft: "0",
+    },
 }));
 
 const Navbar = () => {
@@ -49,9 +54,9 @@ const Navbar = () => {
     const [fullScreen, setFullScreen] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(false);
     const searchRef = useRef<HTMLInputElement | null>(null);
+    const isSM = useMediaQuery("(max-width: 599.94px)");
 
     useEffect(() => {
-        console.log(searchRef.current);
         inputFocus && searchRef.current && searchRef.current.focus();
     }, [inputFocus]);
 
@@ -88,7 +93,7 @@ const Navbar = () => {
                     )}
                     {/* SearchBar -> inputBox Hidden click then focus */}
                     <Box
-                        className={`flex items-center rounded-full overflow-hidden transition-all duration-[400] ${
+                        className={`flex items-center rounded-full overflow-hidden transition-all duration-[400] shrink-0 ${
                             inputFocus && "bg-white/20"
                         }`}
                     >

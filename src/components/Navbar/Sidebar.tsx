@@ -10,7 +10,7 @@ import RateReviewRoundedIcon from "@mui/icons-material/RateReviewRounded";
 import SchoolIcon from "@mui/icons-material/School";
 import {
     Box,
-    Button,
+    BoxProps,
     Divider,
     Drawer,
     IconButton,
@@ -20,7 +20,7 @@ import {
     ListItemIcon,
     ListItemText,
     styled,
-    Typography,
+    useMediaQuery,
 } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
 
@@ -86,21 +86,37 @@ const SidebarHead = styled(Box)(({ theme }) => ({
     minHeight: "56px",
 }));
 
+interface DrawerContentProp extends BoxProps {
+    width: string;
+}
+
+const DrawerContent = styled(Box, {
+    shouldForwardProp: (prop) => prop !== "width",
+})<DrawerContentProp>(({ theme, width }) => ({
+    width,
+    [theme.breakpoints.down("sm")]: {
+        width: "250px",
+    },
+}));
+
 const Sidebar = ({ width, setDrawerOpen, drawerOpen }: SideBarProps) => {
+    const isSM = useMediaQuery("(max-width: 599.94px)");
     return (
         <Drawer
-            variant="permanent"
+            variant={isSM ? "temporary" : "permanent"}
             anchor="left"
             className="box-border whitespace-nowrap"
+            {...(isSM && {
+                open: drawerOpen,
+                onClose: () => setDrawerOpen(false),
+            })}
         >
-            <Box
-                sx={{ width }}
+            <DrawerContent
+                width={width}
                 className="overflow-x-hidden transition-all duration-[400]"
             >
                 <SidebarHead>
-                    <IconButton
-                        className="font-bold text-xl tracking-wider p-1 px-2 rounded-lg text-white ease-in"
-                    >
+                    <IconButton className="font-bold text-xl tracking-wider p-1 px-2 rounded-lg text-white ease-in">
                         {drawerOpen ? "ITMBU" : "I"}
                     </IconButton>
                     {drawerOpen && (
@@ -123,7 +139,7 @@ const Sidebar = ({ width, setDrawerOpen, drawerOpen }: SideBarProps) => {
                         </ListItem>
                     ))}
                 </List>
-            </Box>
+            </DrawerContent>
         </Drawer>
     );
 };

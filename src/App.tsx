@@ -1,14 +1,17 @@
-import { StyledEngineProvider } from "@mui/material";
+import { Box, StyledEngineProvider, useTheme } from "@mui/material";
 import Navbar from "./components/Navbar";
-import Player from "./Player/Player";
 
 function App() {
+    const theme = useTheme();
     return (
         <StyledEngineProvider injectFirst>
-            <div className="min-h-screen">
+            <Box
+                className="min-h-screen"
+                sx={{ bgcolor: theme.palette.background.default }}
+            >
                 <Navbar />
                 {/* <Player /> */}
-            </div>
+            </Box>
         </StyledEngineProvider>
     );
 }
