@@ -2,21 +2,22 @@ import {
     ChatRounded,
     Fullscreen,
     FullscreenExit,
+    Menu as MenuIcon,
     NotificationsRounded,
     SearchRounded,
 } from "@mui/icons-material";
 import {
     AppBar,
+    AppBarProps,
     Avatar,
     Box,
-    Button,
     IconButton,
     InputBase,
     styled,
     Toolbar,
-    Typography,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import Sidebar from "./Sidebar";
 
 const StyledInputbase = styled(InputBase)(() => ({
     input: {
@@ -26,10 +27,27 @@ const StyledInputbase = styled(InputBase)(() => ({
     },
 }));
 
+const OpenedWidth = "250px";
+// Icon size -> 24 && paddingInline -> 16
+const ClosedWidth = `${16 + 16 + 24}px`;
+
+interface StyledAppBarProps extends AppBarProps {
+    open?: boolean;
+}
+
+const StyledToolBar = styled(Toolbar, {
+    shouldForwardProp: (prop) => prop !== "open",
+})<StyledAppBarProps>(({ open }) => ({
+    marginLeft: open ? OpenedWidth : ClosedWidth,
+    width: open ? `100%-${OpenedWidth}` : `100%-${ClosedWidth}`,
+    padding: "0 10px !important",
+}));
+
 const Navbar = () => {
     const [inputFocus, setInputFocus] = useState(false);
     const [searchVal, setSearchVal] = useState("");
     const [fullScreen, setFullScreen] = useState(false);
+    const [drawerOpen, setDrawerOpen] = useState(false);
     const searchRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
@@ -37,30 +55,40 @@ const Navbar = () => {
         inputFocus && searchRef.current && searchRef.current.focus();
     }, [inputFocus]);
 
-    const genertateNum = (s: number, e: number) =>
-        +(Math.random() * (e - s) + s).toFixed();
+    const genertateNum = useMemo(
+        () =>
+            (s: number, e: number): number =>
+                +(Math.random() * (e - s) + s).toFixed(),
+        []
+    );
 
-    const randomeColor = () =>
-        `rgba(${genertateNum(100, 255)}, ${genertateNum(
-            100,
-            255
-        )}, ${genertateNum(150, 255)})`;
-
+    const randomeColor = useMemo(
+        () =>
+            `rgba(${genertateNum(100, 255)}, ${genertateNum(
+                100,
+                255
+            )}, ${genertateNum(150, 255)})`,
+        []
+    );
     return (
         <Box flex={1}>
             <AppBar>
-                <Toolbar className="items-center gap-2">
-                    <Button className="p-0" color="inherit">
-                        <Typography
-                            color="white"
-                            className="font-bold text-xl tracking-wider bg-white/10 p-1 px-2 rounded-lg text-white"
+                <StyledToolBar
+                    open={drawerOpen}
+                    className="items-center gap-2 min-h-[56px] transition-all duration-500 ease-out"
+                >
+                    {/* Menu Icon */}
+                    {drawerOpen || (
+                        <IconButton
+                            className="w-10 h-10"
+                            onClick={() => setDrawerOpen((p) => !p)}
                         >
-                            ITMBU
-                        </Typography>
-                    </Button>
+                            <MenuIcon />
+                        </IconButton>
+                    )}
                     {/* SearchBar -> inputBox Hidden click then focus */}
                     <Box
-                        className={`flex items-center rounded-full overflow-hidden transition-all duration-300 ${
+                        className={`flex items-center rounded-full overflow-hidden transition-all duration-[400] ${
                             inputFocus && "bg-white/20"
                         }`}
                     >
@@ -85,7 +113,7 @@ const Navbar = () => {
                                 })
                             }
                             color="inherit"
-                            className={`w-10 h-10`}
+                            className="w-10 h-10"
                         >
                             <SearchRounded />
                         </IconButton>
@@ -94,16 +122,15 @@ const Navbar = () => {
                     <IconButton
                         onClick={() => setFullScreen((p) => !p)}
                         color="inherit"
-                        className="w-10 h-10 mr-auto"
+                        className="w-10 h-10 hidden md:flex"
                     >
                         {fullScreen ? <Fullscreen /> : <FullscreenExit />}
                     </IconButton>
-                    {/* MarginRight Auto */}
                     {/* Notification */}
                     <IconButton
                         onClick={() => {}}
                         color="inherit"
-                        className="w-10 h-10"
+                        className="w-10 h-10 ml-auto"
                     >
                         <NotificationsRounded />
                     </IconButton>
@@ -118,12 +145,17 @@ const Navbar = () => {
                     {/* Avatar + Name */}
                     <Avatar
                         alt="Chandraprakash Darji"
-                        sx={{ bgcolor: randomeColor(), fontWeight: "bold" }}
+                        sx={{ bgcolor: randomeColor, fontWeight: "bold" }}
                     >
                         CP
                     </Avatar>
-                </Toolbar>
+                </StyledToolBar>
             </AppBar>
+            <Sidebar
+                drawerOpen={drawerOpen}
+                setDrawerOpen={setDrawerOpen}
+                width={drawerOpen ? OpenedWidth : ClosedWidth}
+            />
         </Box>
     );
 };
