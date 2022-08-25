@@ -15,9 +15,11 @@ import {
     InputBase,
     styled,
     Toolbar,
+    Tooltip,
     useMediaQuery,
 } from "@mui/material";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { ColorModeContext } from "../../utils/ToggleColorMode";
 import Sidebar from "./Sidebar";
 
 const StyledInputbase = styled(InputBase)(() => ({
@@ -55,26 +57,27 @@ const Navbar = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const searchRef = useRef<HTMLInputElement | null>(null);
     const isSM = useMediaQuery("(max-width: 599.94px)");
+    const { toggleColorMode } = useContext(ColorModeContext);
 
     useEffect(() => {
         inputFocus && searchRef.current && searchRef.current.focus();
     }, [inputFocus]);
 
-    const genertateNum = useMemo(
-        () =>
-            (s: number, e: number): number =>
-                +(Math.random() * (e - s) + s).toFixed(),
-        []
-    );
+    // const genertateNum = useMemo(
+    //     () =>
+    //         (s: number, e: number): number =>
+    //             +(Math.random() * (e - s) + s).toFixed(),
+    //     []
+    // );
 
-    const randomeColor = useMemo(
-        () =>
-            `rgba(${genertateNum(100, 255)}, ${genertateNum(
-                100,
-                255
-            )}, ${genertateNum(150, 255)})`,
-        []
-    );
+    // const randomeColor = useMemo(
+    //     () =>
+    //         `rgba(${genertateNum(100, 255)}, ${genertateNum(
+    //             100,
+    //             255
+    //         )}, ${genertateNum(150, 255)})`,
+    //     []
+    // );
     return (
         <Box flex={1}>
             <AppBar>
@@ -84,76 +87,100 @@ const Navbar = () => {
                 >
                     {/* Menu Icon */}
                     {drawerOpen || (
-                        <IconButton
-                            className="w-10 h-10"
-                            onClick={() => setDrawerOpen((p) => !p)}
-                        >
-                            <MenuIcon />
-                        </IconButton>
+                        <Tooltip title="Menu" disableInteractive>
+                            <IconButton
+                                className="w-10 h-10"
+                                color="inherit"
+                                onClick={() => setDrawerOpen((p) => !p)}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                        </Tooltip>
                     )}
                     {/* SearchBar -> inputBox Hidden click then focus */}
-                    <Box
-                        className={`flex items-center rounded-full overflow-hidden transition-all duration-[400] shrink-0 ${
-                            inputFocus && "bg-white/20"
-                        }`}
-                    >
-                        <StyledInputbase
-                            className={`text-white transition-all duration-300 tracking-wider ${
-                                inputFocus ? "w-52 pl-4" : "w-0"
+                    <Tooltip title="Search" disableInteractive>
+                        <Box
+                            className={`flex items-center rounded-full overflow-hidden transition-all duration-[400] shrink-0 0 ${
+                                inputFocus &&
+                                "bg-[#ffffff10] dark:bg-[#00000010] border border-dark/20 dark:border-white/20"
                             }`}
-                            placeholder="Search..."
-                            value={searchVal}
-                            onChange={(e) => setSearchVal(e.target.value)}
-                            onBlur={() => {
-                                if (searchVal === "") setInputFocus(false);
-                            }}
-                            inputRef={searchRef}
-                        />
+                        >
+                            <StyledInputbase
+                                className={`text-white transition-all duration-300 tracking-wider ${
+                                    inputFocus ? "w-52 pl-4" : "w-0"
+                                }`}
+                                placeholder="Search..."
+                                value={searchVal}
+                                onChange={(e) => setSearchVal(e.target.value)}
+                                onBlur={() => {
+                                    if (searchVal === "") setInputFocus(false);
+                                }}
+                                inputRef={searchRef}
+                            />
+                            <IconButton
+                                onClick={() =>
+                                    setInputFocus((prev) => {
+                                        if (!prev) return true;
+                                        if (searchVal !== "") return true;
+                                        return false;
+                                    })
+                                }
+                                color="inherit"
+                                className="w-10 h-10"
+                            >
+                                <SearchRounded />
+                            </IconButton>
+                        </Box>
+                    </Tooltip>
+                    {/* IconButton -> Full Screen */}
+                    <Tooltip
+                        title="Full Screen temp(Dark mode)"
+                        disableInteractive
+                    >
                         <IconButton
-                            onClick={() =>
-                                setInputFocus((prev) => {
-                                    if (!prev) return true;
-                                    if (searchVal !== "") return true;
-                                    return false;
-                                })
-                            }
+                            onClick={() => {
+                                setFullScreen((p) => !p);
+                                toggleColorMode();
+                            }}
+                            color="inherit"
+                            className="w-10 h-10 hidden md:flex"
+                        >
+                            {fullScreen ? <Fullscreen /> : <FullscreenExit />}
+                        </IconButton>
+                    </Tooltip>
+                    {/* Notification */}
+                    <Tooltip title="Notification" disableInteractive>
+                        <IconButton
+                            onClick={() => {}}
+                            color="inherit"
+                            className="w-10 h-10 ml-auto"
+                        >
+                            <NotificationsRounded />
+                        </IconButton>
+                    </Tooltip>
+                    {/* Chat */}
+                    <Tooltip title="Chat" disableInteractive>
+                        <IconButton
+                            onClick={() => {}}
                             color="inherit"
                             className="w-10 h-10"
                         >
-                            <SearchRounded />
+                            <ChatRounded />
                         </IconButton>
-                    </Box>
-                    {/* IconButton -> Full Screen */}
-                    <IconButton
-                        onClick={() => setFullScreen((p) => !p)}
-                        color="inherit"
-                        className="w-10 h-10 hidden md:flex"
-                    >
-                        {fullScreen ? <Fullscreen /> : <FullscreenExit />}
-                    </IconButton>
-                    {/* Notification */}
-                    <IconButton
-                        onClick={() => {}}
-                        color="inherit"
-                        className="w-10 h-10 ml-auto"
-                    >
-                        <NotificationsRounded />
-                    </IconButton>
-                    {/* Chat */}
-                    <IconButton
-                        onClick={() => {}}
-                        color="inherit"
-                        className="w-10 h-10"
-                    >
-                        <ChatRounded />
-                    </IconButton>
+                    </Tooltip>
                     {/* Avatar + Name */}
-                    <Avatar
-                        alt="Chandraprakash Darji"
-                        sx={{ bgcolor: randomeColor, fontWeight: "bold" }}
-                    >
-                        CP
-                    </Avatar>
+                    <Tooltip title="Chandraprakash Darji">
+                        <Avatar
+                            alt="Chandraprakash Darji"
+                            sx={{
+                                bgcolor: "#0f0",
+                                fontWeight: "bold",
+                                color: "#000",
+                            }}
+                        >
+                            CP
+                        </Avatar>
+                    </Tooltip>
                 </StyledToolBar>
             </AppBar>
             <Sidebar
