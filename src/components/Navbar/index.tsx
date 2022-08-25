@@ -31,8 +31,8 @@ const StyledInputbase = styled(InputBase)(() => ({
 }));
 
 const OpenedWidth = "250px";
-// Icon size -> 24 && paddingInline -> 16
-const ClosedWidth = `${16 + 16 + 24}px`;
+// Icon size -> 24 && paddingOnIcon -> 16 + 16 && paddingOnSIdebar -> 8 + 8
+const ClosedWidth = `${16 + 16 + 8 + 8 + 24}px`;
 
 interface StyledAppBarProps extends AppBarProps {
     open?: boolean;
