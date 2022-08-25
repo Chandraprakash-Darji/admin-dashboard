@@ -1,16 +1,17 @@
 import { ChevronLeft } from "@mui/icons-material";
 import AirlineSeatIndividualSuiteRoundedIcon from "@mui/icons-material/AirlineSeatIndividualSuiteRounded";
+import AssistantIcon from "@mui/icons-material/Assistant";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import FolderOpenRoundedIcon from "@mui/icons-material/FolderOpenRounded";
 import HelpOutlineRoundedIcon from "@mui/icons-material/HelpOutlineRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import NoteAltRoundedIcon from "@mui/icons-material/NoteAltRounded";
 import PaymentRoundedIcon from "@mui/icons-material/PaymentRounded";
-import RateReviewRoundedIcon from "@mui/icons-material/RateReviewRounded";
 import SchoolIcon from "@mui/icons-material/School";
 import {
     Box,
     BoxProps,
+    Button,
     Divider,
     Drawer,
     IconButton,
@@ -20,10 +21,11 @@ import {
     ListItemIcon,
     ListItemText,
     styled,
+    Tooltip,
+    Typography,
     useMediaQuery,
 } from "@mui/material";
-import { Dispatch, SetStateAction } from "react";
-
+import { Dispatch, ReactNode, SetStateAction } from "react";
 type SideBarProps = {
     drawerOpen: boolean;
     setDrawerOpen: Dispatch<SetStateAction<boolean>>;
@@ -49,7 +51,7 @@ const menuList = [
     {
         text: "Feedback",
         id: 2,
-        icon: <RateReviewRoundedIcon />,
+        icon: <AssistantIcon />,
     },
     {
         text: "Exam",
@@ -82,7 +84,6 @@ const SidebarHead = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingInline: "16px",
     minHeight: "56px",
 }));
 
@@ -115,28 +116,54 @@ const Sidebar = ({ width, setDrawerOpen, drawerOpen }: SideBarProps) => {
                 width={width}
                 className="overflow-x-hidden transition-all duration-[400]"
             >
-                <SidebarHead>
-                    <IconButton className="font-bold text-xl tracking-wider p-1 px-2 rounded-lg ease-in">
-                        {drawerOpen ? "ITMBU" : "I"}
-                    </IconButton>
+                <SidebarHead
+                    className={`${
+                        drawerOpen ? "px-4" : "justify-center items-stretch p-2"
+                    } `}
+                >
+                    <Button
+                        className={`font-bold text-xl tracking-wider rounded-lg transition-all duration-300 text-inherit`}
+                    >
+                        {drawerOpen ? "ITMBU" : "ITM"}
+                    </Button>
                     {drawerOpen && (
-                        <IconButton
-                            color="inherit"
-                            onClick={() => setDrawerOpen(false)}
-                        >
-                            <ChevronLeft />
-                        </IconButton>
+                        <Tooltip title="Close">
+                            <IconButton
+                                color="inherit"
+                                onClick={() => setDrawerOpen(false)}
+                            >
+                                <ChevronLeft />
+                            </IconButton>
+                        </Tooltip>
                     )}
                 </SidebarHead>
                 <Divider />
-                <List>
+                <List
+                    className={`gap-1 px-2 flex flex-col transition-all duration-300 `}
+                >
                     {menuList.map((menu) => (
-                        <ListItem key={menu.id} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>{menu.icon}</ListItemIcon>
-                                <ListItemText primary={menu.text} />
-                            </ListItemButton>
-                        </ListItem>
+                        <>
+                            {drawerOpen ? (
+                                <SideBarItem
+                                    drawerOpen={drawerOpen}
+                                    menu={menu}
+                                    key={menu.id}
+                                />
+                            ) : (
+                                <Tooltip
+                                    title={<Typography>{menu.text}</Typography>}
+                                    placement="right"
+                                >
+                                    <div>
+                                        <SideBarItem
+                                            drawerOpen={drawerOpen}
+                                            menu={menu}
+                                            key={menu.id}
+                                        />
+                                    </div>
+                                </Tooltip>
+                            )}
+                        </>
                     ))}
                 </List>
             </DrawerContent>
@@ -145,3 +172,25 @@ const Sidebar = ({ width, setDrawerOpen, drawerOpen }: SideBarProps) => {
 };
 
 export default Sidebar;
+
+interface SideBarItemProps {
+    menu: {
+        text: string;
+        id: number;
+        icon: ReactNode;
+    };
+    drawerOpen: boolean;
+}
+
+const SideBarItem = ({ menu, drawerOpen }: SideBarItemProps) => {
+    return (
+        <ListItem disablePadding>
+            <Box className="w-full rounded-xl overflow-hidden h-14 flex justify-center">
+                <ListItemButton className="w-full">
+                    <ListItemIcon>{menu.icon}</ListItemIcon>
+                    {drawerOpen && <ListItemText primary={menu.text} />}
+                </ListItemButton>
+            </Box>
+        </ListItem>
+    );
+};
