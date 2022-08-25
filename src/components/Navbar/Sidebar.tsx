@@ -116,7 +116,7 @@ const Sidebar = ({ width, setDrawerOpen, drawerOpen }: SideBarProps) => {
                 className="overflow-x-hidden transition-all duration-[400]"
             >
                 <SidebarHead>
-                    <IconButton className="font-bold text-xl tracking-wider p-1 px-2 rounded-lg text-white ease-in">
+                    <IconButton className="font-bold text-xl tracking-wider p-1 px-2 rounded-lg ease-in">
                         {drawerOpen ? "ITMBU" : "I"}
                     </IconButton>
                     {drawerOpen && (
