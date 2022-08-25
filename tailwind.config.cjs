@@ -3,7 +3,7 @@ module.exports = {
     // corePlugins: {
     //     preflight: false,
     // },
-    important: "#root",
+    important: "#itmbu",
     content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
     theme: {
         extend: {},
