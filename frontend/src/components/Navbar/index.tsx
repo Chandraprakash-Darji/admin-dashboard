@@ -86,17 +86,19 @@ const Navbar = () => {
                     className="items-center gap-2 min-h-[56px] transition-all duration-500 ease-out"
                 >
                     {/* Menu Icon */}
-                    {drawerOpen || (
-                        <Tooltip title="Menu" disableInteractive>
-                            <IconButton
-                                className="w-10 h-10"
-                                color="inherit"
-                                onClick={() => setDrawerOpen((p) => !p)}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                        </Tooltip>
-                    )}
+                    <>
+                        {drawerOpen || (
+                            <Tooltip title="Menu" disableInteractive>
+                                <IconButton
+                                    className="w-10 h-10"
+                                    color="inherit"
+                                    onClick={() => setDrawerOpen((p) => !p)}
+                                >
+                                    <MenuIcon />
+                                </IconButton>
+                            </Tooltip>
+                        )}
+                    </>
                     {/* SearchBar -> inputBox Hidden click then focus */}
                     <Tooltip title="Search" disableInteractive>
                         <Box
