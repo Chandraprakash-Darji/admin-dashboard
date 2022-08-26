@@ -26,6 +26,9 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import { Dispatch, ReactNode, SetStateAction } from "react";
+
+
+
 type SideBarProps = {
     drawerOpen: boolean;
     setDrawerOpen: Dispatch<SetStateAction<boolean>>;
@@ -153,12 +156,12 @@ const Sidebar = ({ width, setDrawerOpen, drawerOpen }: SideBarProps) => {
                                 <Tooltip
                                     title={<Typography>{menu.text}</Typography>}
                                     placement="right"
+                                    key={menu.id}
                                 >
                                     <div>
                                         <SideBarItem
                                             drawerOpen={drawerOpen}
                                             menu={menu}
-                                            key={menu.id}
                                         />
                                     </div>
                                 </Tooltip>
