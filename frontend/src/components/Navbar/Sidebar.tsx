@@ -27,8 +27,6 @@ import {
 } from "@mui/material";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 
-
-
 type SideBarProps = {
     drawerOpen: boolean;
     setDrawerOpen: Dispatch<SetStateAction<boolean>>;
@@ -145,18 +143,16 @@ const Sidebar = ({ width, setDrawerOpen, drawerOpen }: SideBarProps) => {
                     className={`gap-1 px-2 flex flex-col transition-all duration-300 `}
                 >
                     {menuList.map((menu) => (
-                        <>
+                        <div key={menu.id}>
                             {drawerOpen ? (
                                 <SideBarItem
                                     drawerOpen={drawerOpen}
                                     menu={menu}
-                                    key={menu.id}
                                 />
                             ) : (
                                 <Tooltip
                                     title={<Typography>{menu.text}</Typography>}
                                     placement="right"
-                                    key={menu.id}
                                 >
                                     <div>
                                         <SideBarItem
@@ -166,7 +162,7 @@ const Sidebar = ({ width, setDrawerOpen, drawerOpen }: SideBarProps) => {
                                     </div>
                                 </Tooltip>
                             )}
-                        </>
+                        </div>
                     ))}
                 </List>
             </DrawerContent>
