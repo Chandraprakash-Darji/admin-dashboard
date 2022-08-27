@@ -9,14 +9,12 @@ import {
 import {
     AppBar,
     AppBarProps,
-    Avatar,
     Box,
     IconButton,
     InputBase,
     styled,
     Toolbar,
     Tooltip,
-    useMediaQuery,
 } from "@mui/material";
 import { useContext, useEffect, useRef, useState } from "react";
 import { ColorModeContext } from "../../utils/ToggleColorMode";
@@ -30,7 +28,7 @@ const StyledInputbase = styled(InputBase)(() => ({
     },
 }));
 
-const OpenedWidth = "250px";
+const OpenedWidth = "300px";
 // Icon size -> 24 && paddingOnIcon -> 16 + 16 && paddingOnSIdebar -> 8 + 8
 const ClosedWidth = `${16 + 16 + 8 + 8 + 24}px`;
 
@@ -56,34 +54,18 @@ const Navbar = () => {
     const [fullScreen, setFullScreen] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(false);
     const searchRef = useRef<HTMLInputElement | null>(null);
-    const isSM = useMediaQuery("(max-width: 599.94px)");
     const { toggleColorMode } = useContext(ColorModeContext);
 
     useEffect(() => {
         inputFocus && searchRef.current && searchRef.current.focus();
     }, [inputFocus]);
 
-    // const genertateNum = useMemo(
-    //     () =>
-    //         (s: number, e: number): number =>
-    //             +(Math.random() * (e - s) + s).toFixed(),
-    //     []
-    // );
-
-    // const randomeColor = useMemo(
-    //     () =>
-    //         `rgba(${genertateNum(100, 255)}, ${genertateNum(
-    //             100,
-    //             255
-    //         )}, ${genertateNum(150, 255)})`,
-    //     []
-    // );
     return (
         <Box flex={1}>
             <AppBar>
                 <StyledToolBar
                     open={drawerOpen}
-                    className="items-center gap-2 min-h-[56px] transition-all duration-500 ease-out"
+                    className="items-center gap-2 min-h-[70px] transition-all duration-500 ease-out"
                 >
                     {/* Menu Icon */}
                     <>
@@ -169,19 +151,6 @@ const Navbar = () => {
                         >
                             <ChatRounded />
                         </IconButton>
-                    </Tooltip>
-                    {/* Avatar + Name */}
-                    <Tooltip title="Chandraprakash Darji">
-                        <Avatar
-                            alt="Chandraprakash Darji"
-                            sx={{
-                                bgcolor: "#0f0",
-                                fontWeight: "bold",
-                                color: "#000",
-                            }}
-                        >
-                            CP
-                        </Avatar>
                     </Tooltip>
                 </StyledToolBar>
             </AppBar>
