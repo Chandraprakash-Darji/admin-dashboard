@@ -1,17 +1,16 @@
-import { ChevronLeft } from "@mui/icons-material";
-import AirlineSeatIndividualSuiteRoundedIcon from "@mui/icons-material/AirlineSeatIndividualSuiteRounded";
-import AssistantIcon from "@mui/icons-material/Assistant";
-import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-import FolderOpenRoundedIcon from "@mui/icons-material/FolderOpenRounded";
-import HelpOutlineRoundedIcon from "@mui/icons-material/HelpOutlineRounded";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import NoteAltRoundedIcon from "@mui/icons-material/NoteAltRounded";
-import PaymentRoundedIcon from "@mui/icons-material/PaymentRounded";
-import SchoolIcon from "@mui/icons-material/School";
 import {
+    ChevronLeft,
+    FacebookOutlined,
+    GitHub,
+    Instagram,
+    LinkedIn,
+    MailOutlineOutlined,
+    Twitter,
+} from "@mui/icons-material";
+import {
+    Avatar,
     Box,
     BoxProps,
-    Button,
     Divider,
     Drawer,
     IconButton,
@@ -19,13 +18,15 @@ import {
     ListItem,
     ListItemButton,
     ListItemIcon,
-    ListItemText,
+    ListSubheader,
     styled,
     Tooltip,
     Typography,
     useMediaQuery,
 } from "@mui/material";
-import { Dispatch, ReactNode, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
+import Logo from "../../assets/icons/logo";
+import menuList, { menuIn } from "../../mocks/menuItems";
 
 type SideBarProps = {
     drawerOpen: boolean;
@@ -33,59 +34,11 @@ type SideBarProps = {
     width: string;
 };
 
-const menuList = [
-    {
-        text: "Home",
-        id: 0,
-        icon: <HomeRoundedIcon />,
-    },
-    {
-        text: "Classroom",
-        id: 1,
-        icon: <SchoolIcon />,
-    },
-    {
-        text: "Payments",
-        id: 8,
-        icon: <PaymentRoundedIcon />,
-    },
-    {
-        text: "Feedback",
-        id: 2,
-        icon: <AssistantIcon />,
-    },
-    {
-        text: "Exam",
-        id: 3,
-        icon: <NoteAltRoundedIcon />,
-    },
-    {
-        text: "Calender",
-        id: 4,
-        icon: <CalendarMonthRoundedIcon />,
-    },
-    {
-        text: "Drive",
-        id: 5,
-        icon: <FolderOpenRoundedIcon />,
-    },
-    {
-        text: "Help",
-        id: 6,
-        icon: <HelpOutlineRoundedIcon />,
-    },
-    {
-        text: "Hostel",
-        id: 7,
-        icon: <AirlineSeatIndividualSuiteRoundedIcon />,
-    },
-];
-
 const SidebarHead = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    minHeight: "56px",
+    height: "70px",
 }));
 
 interface DrawerContentProp extends BoxProps {
@@ -97,17 +50,45 @@ const DrawerContent = styled(Box, {
 })<DrawerContentProp>(({ theme, width }) => ({
     width,
     [theme.breakpoints.down("sm")]: {
-        width: "250px",
+        width: "300px",
     },
 }));
 
 const Sidebar = ({ width, setDrawerOpen, drawerOpen }: SideBarProps) => {
     const isSM = useMediaQuery("(max-width: 599.94px)");
+
+    const menus: menuIn[] = [
+        {
+            text: "Chandraprakash Darji",
+            id: 213289545740,
+            type: "user",
+            icon: () => (
+                <Avatar
+                    alt="Chandraprakash Darji"
+                    className="transition-all duration-500 aspect-auto text-inherit"
+                    {...{
+                        src: "https://www.github.com/Chandraprakash-Darji.png",
+                    }}
+                    sx={{
+                        bgcolor: "#ffffff30",
+                        fontWeight: "bold",
+                        width: drawerOpen ? "100px" : "40px",
+                        height: drawerOpen ? "100px" : "40px",
+                        fontSize: drawerOpen ? "3rem" : "1.2rem",
+                    }}
+                >
+                    CP
+                </Avatar>
+            ),
+        },
+        ...menuList,
+    ];
+
     return (
         <Drawer
             variant={isSM ? "temporary" : "permanent"}
             anchor="left"
-            className="box-border whitespace-nowrap"
+            className="box-border"
             {...(isSM && {
                 open: drawerOpen,
                 onClose: () => setDrawerOpen(false),
@@ -115,35 +96,45 @@ const Sidebar = ({ width, setDrawerOpen, drawerOpen }: SideBarProps) => {
         >
             <DrawerContent
                 width={width}
-                className="overflow-x-hidden transition-all duration-[400]"
+                className="overflow-x-hidden ease-linear transition-all duration-[400]"
             >
-                <SidebarHead
-                    className={`${
-                        drawerOpen ? "px-4" : "justify-center items-stretch p-2"
-                    } `}
-                >
-                    <Button
-                        className={`font-bold text-xl tracking-wider rounded-lg transition-all duration-300 text-inherit`}
-                    >
-                        {drawerOpen ? "ITMBU" : "ITM"}
-                    </Button>
-                    {drawerOpen && (
-                        <Tooltip title="Close">
-                            <IconButton
-                                color="inherit"
-                                onClick={() => setDrawerOpen(false)}
-                            >
-                                <ChevronLeft />
-                            </IconButton>
-                        </Tooltip>
-                    )}
-                </SidebarHead>
-                <Divider />
                 <List
-                    className={`gap-1 px-2 flex flex-col transition-all duration-300 `}
+                    className={`gap-1 flex flex-col transition-all duration-300`}
+                    disablePadding
                 >
-                    {menuList.map((menu) => (
-                        <div key={menu.id}>
+                    <ListSubheader className="w-full p-0">
+                        <SidebarHead
+                            className={`top-0 py-2 px-2 ${
+                                drawerOpen ? "" : "justify-center items-stretch"
+                            } `}
+                        >
+                            <IconButton
+                                className={`font-bold w-16 text-xl tracking-wider rounded-lg transition-all duration-300 text-inherit`}
+                                disableRipple
+                            >
+                                <Logo />
+                            </IconButton>
+                            {drawerOpen && (
+                                <Tooltip title="Close">
+                                    <IconButton
+                                        color="inherit"
+                                        onClick={() => setDrawerOpen(false)}
+                                    >
+                                        <ChevronLeft />
+                                    </IconButton>
+                                </Tooltip>
+                            )}
+                        </SidebarHead>
+                        <Divider />
+                    </ListSubheader>
+                    {menus.map((menu) => (
+                        <ListItem
+                            sx={{
+                                px: ".5rem",
+                            }}
+                            disablePadding
+                            key={menu.id}
+                        >
                             {drawerOpen ? (
                                 <SideBarItem
                                     drawerOpen={drawerOpen}
@@ -162,7 +153,7 @@ const Sidebar = ({ width, setDrawerOpen, drawerOpen }: SideBarProps) => {
                                     </div>
                                 </Tooltip>
                             )}
-                        </div>
+                        </ListItem>
                     ))}
                 </List>
             </DrawerContent>
@@ -173,23 +164,111 @@ const Sidebar = ({ width, setDrawerOpen, drawerOpen }: SideBarProps) => {
 export default Sidebar;
 
 interface SideBarItemProps {
-    menu: {
-        text: string;
-        id: number;
-        icon: ReactNode;
-    };
+    menu: menuIn;
     drawerOpen: boolean;
 }
 
 const SideBarItem = ({ menu, drawerOpen }: SideBarItemProps) => {
-    return (
-        <ListItem disablePadding>
-            <Box className="w-full rounded-xl overflow-hidden h-14 flex justify-center">
-                <ListItemButton className="w-full">
-                    <ListItemIcon>{menu.icon}</ListItemIcon>
-                    {drawerOpen && <ListItemText primary={menu.text} />}
-                </ListItemButton>
-            </Box>
-        </ListItem>
+    const ifIcon = (
+        <ListItemButton
+            className="w-full p-0 rounded-xl overflow-hidden h-14 "
+            sx={{
+                "&:hover": {
+                    bgcolor: "primary.main",
+                    color: "primary.contrastText",
+                },
+            }}
+        >
+            <ListItemIcon className="flex justify-center items-center text-inherit">
+                <menu.icon />
+            </ListItemIcon>
+            {drawerOpen && (
+                <Typography className="overflow-hidden font-bold text-ellipsis">
+                    {menu.text}
+                </Typography>
+            )}
+        </ListItemButton>
     );
+
+    const ifUser = (
+        <ListItemButton
+            className={`w-full rounded-xl overflow-hidden hover:bg-transparent flex justify-center items-center my-2 ${
+                drawerOpen ? "flex-col py-6 gap-1" : "p-0 py-2 h-14"
+            }`}
+            sx={{
+                ...(drawerOpen
+                    ? {
+                          borderColor: "primary.main",
+                          borderWidth: "2px",
+                          borderStyle: "solid",
+                      }
+                    : {}),
+            }}
+            disableRipple
+        >
+            {drawerOpen && (
+                <img
+                    src="https://user-images.githubusercontent.com/93640141/154883570-4886fb9e-8a31-4eae-bd99-5f4b70d9c44b.png"
+                    alt="banner"
+                    className="w-full absolute top-0 left-0 h-24 object-cover"
+                />
+            )}
+            <ListItemIcon className="flex justify-center items-center ">
+                <menu.icon />
+            </ListItemIcon>
+
+            <div
+                className={`text-center transition-opacity duration-300 ${
+                    drawerOpen
+                        ? "opacity-100 w-auto h-auto"
+                        : "opacity-0 w-0 h-0 overflow-hidden"
+                }`}
+            >
+                <Typography
+                    className="overflow-hidden text-ellipsis font-bold text-lg"
+                    sx={{
+                        "&:hover": {
+                            color: "primary.main",
+                        },
+                    }}
+                >
+                    {menu.text}
+                </Typography>
+                <Typography className="text-xs">21C22004</Typography>
+                <Typography className="text-xs">
+                    B.Tech In Computer Science & Engineering (Artificial
+                    Intelligence)
+                </Typography>
+                <Box
+                    mt={1}
+                    sx={{
+                        ".MuiIconButton-root:hover": {
+                            color: "primary.main",
+                        },
+                    }}
+                >
+                    <IconButton>
+                        <FacebookOutlined />
+                    </IconButton>
+                    <IconButton>
+                        <Twitter />
+                    </IconButton>
+                    <IconButton>
+                        <Instagram />
+                    </IconButton>
+                    <IconButton>
+                        <GitHub />
+                    </IconButton>
+                    <IconButton>
+                        <LinkedIn />
+                    </IconButton>
+                    <IconButton>
+                        <MailOutlineOutlined />
+                    </IconButton>
+                </Box>
+            </div>
+        </ListItemButton>
+    );
+
+    return <>{typeof menu.icon === typeof ChevronLeft ? ifIcon : ifUser}</>;
 };
