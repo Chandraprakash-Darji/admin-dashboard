@@ -3,7 +3,7 @@ module.exports = {
     // corePlugins: {
     //     preflight: false,
     // },
-    important: "#itmbu",
+    important: "#AxStudios",
     content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
     theme: {
         extend: {},
