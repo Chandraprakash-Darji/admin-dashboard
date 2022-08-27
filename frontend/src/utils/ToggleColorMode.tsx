@@ -5,6 +5,7 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import { createContext, ReactElement, useMemo, useState } from "react";
+import { darkPalette, lightPalette } from "./pallete";
 
 export const ColorModeContext = createContext<{
     mode: "light" | "dark";
@@ -34,9 +35,7 @@ const ToggleColorMode = ({ children }: { children: ReactElement }) => {
     const theme = useMemo(
         () =>
             createTheme({
-                palette: {
-                    mode,
-                },
+                palette: mode === "light" ? lightPalette : darkPalette,
             }),
         [mode]
     );
