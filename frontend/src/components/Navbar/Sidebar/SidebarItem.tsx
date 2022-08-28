@@ -29,6 +29,10 @@ const SideBarItem = ({ menu, drawerOpen }: SideBarItemProps) => {
         <ListItem
             sx={{
                 px: ".5rem",
+                /**
+                 * After index 4, there is help/feedback so marginBottom of auto so it make space betwwen it
+                 */
+                mb: menu.id === 4 ? "auto" : "",
             }}
             disablePadding
         >
