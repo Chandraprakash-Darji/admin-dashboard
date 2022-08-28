@@ -15,15 +15,14 @@
 - [ ] Dashboard
   - [ ] Sidebar
     - [ ] Options
-      - [ ] Home
-      - [ ] Subjects
-        - [ ] Respective subjects
-      - [ ] Calender
-      - [ ] Results
-      - [ ] Gap
-      - [ ] Help
-      - [ ] Feedback
-      - [ ] Logout
+      - [X] Home
+      - [X] Subjects
+        - [x] Respective subjects
+      - [X] Calender
+      - [X] Results
+      - [X] Help
+      - [X] Feedback
+      - [X] Logout
   - [ ] NavBar
 - [ ] Login page
 - [ ] Register page
