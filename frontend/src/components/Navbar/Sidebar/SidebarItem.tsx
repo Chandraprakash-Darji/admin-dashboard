@@ -1,4 +1,5 @@
 // Imports:
+import { ExpandMore } from "@mui/icons-material";
 import {
     ListItem,
     ListItemButton,
@@ -7,6 +8,7 @@ import {
     Typography,
 } from "@mui/material";
 import { menuIn } from "../../../mocks/menuItems";
+import SubjectList from "./SubjectList";
 
 interface SideBarItemProps {
     /**
@@ -20,6 +22,9 @@ interface SideBarItemProps {
 }
 
 const SideBarItem = ({ menu, drawerOpen }: SideBarItemProps) => {
+    if (menu.subjects)
+        return <SubjectList drawerOpen={drawerOpen} menu={menu} />;
+
     return (
         <ListItem
             sx={{
@@ -44,15 +49,9 @@ const SideBarItem = ({ menu, drawerOpen }: SideBarItemProps) => {
                     }}
                 >
                     {/* Icon */}
-                    <ListItemIcon className="flex justify-center items-center text-inherit">
-                        <menu.icon />
-                    </ListItemIcon>
+                    <ListIcon icon={menu.icon} />
                     {/* Name */}
-                    {drawerOpen && (
-                        <Typography className="overflow-hidden font-bold text-ellipsis">
-                            {menu.text}
-                        </Typography>
-                    )}
+                    {drawerOpen && <ListName text={menu.text} />}
                 </ListItemButton>
             </Tooltip>
         </ListItem>
@@ -60,3 +59,23 @@ const SideBarItem = ({ menu, drawerOpen }: SideBarItemProps) => {
 };
 
 export default SideBarItem;
+
+interface ListIconProps {
+    icon: typeof ExpandMore;
+}
+
+export const ListIcon = ({ icon: Icon }: ListIconProps) => {
+    return (
+        <ListItemIcon className="flex justify-center items-center text-inherit">
+            <Icon />
+        </ListItemIcon>
+    );
+};
+
+export const ListName = ({ text }: { text: string }) => {
+    return (
+        <Typography className="overflow-hidden font-bold text-ellipsis">
+            {text}
+        </Typography>
+    );
+};
