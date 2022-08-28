@@ -12,7 +12,7 @@ export interface menuIn {
     text: string;
     id: number;
     type: "user" | "icon";
-    icon: typeof SchoolIcon | (() => JSX.Element) | string;
+    icon: typeof SchoolIcon;
 }
 
 const menuList: menuIn[] = [
