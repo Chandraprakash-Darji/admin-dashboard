@@ -54,7 +54,8 @@ const SubjectList = ({ menu, drawerOpen }: Props) => {
                     <ListItemButton
                         className={`w-full p-0 rounded-xl overflow-hidden h-14`}
                         sx={{
-                            bgcolor: open ? "#ffffff10" : "transparent",
+                            bgcolor: open ? "primary.main" : "transparent",
+                            color: open ? "primary.contrastText" : "",
                             "&:hover,&:focus-visible": {
                                 bgcolor: "primary.main",
                                 color: "primary.contrastText",
