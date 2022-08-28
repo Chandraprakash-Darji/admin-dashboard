@@ -1,11 +1,15 @@
-import AirlineSeatIndividualSuiteRoundedIcon from "@mui/icons-material/AirlineSeatIndividualSuiteRounded";
+import {
+    ApiOutlined,
+    CodeOutlined,
+    ComputerOutlined,
+    LogoutOutlined,
+    StorageRounded,
+} from "@mui/icons-material";
 import AssistantIcon from "@mui/icons-material/Assistant";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-import FolderOpenRoundedIcon from "@mui/icons-material/FolderOpenRounded";
 import HelpOutlineRoundedIcon from "@mui/icons-material/HelpOutlineRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import NoteAltRoundedIcon from "@mui/icons-material/NoteAltRounded";
-import PaymentRoundedIcon from "@mui/icons-material/PaymentRounded";
 import SchoolIcon from "@mui/icons-material/School";
 
 export interface menuIn {
@@ -13,6 +17,12 @@ export interface menuIn {
     id: number;
     type: "user" | "icon";
     icon: typeof SchoolIcon;
+    subjects?: {
+        id: string;
+        text: string;
+        subjectCode: string;
+        icon: typeof SchoolIcon;
+    }[];
 }
 
 const menuList: menuIn[] = [
@@ -23,19 +33,45 @@ const menuList: menuIn[] = [
         icon: HomeRoundedIcon,
     },
     {
-        text: "Classroom",
+        text: "Subjects",
         type: "icon",
         id: 1,
         icon: SchoolIcon,
+        subjects: [
+            {
+                id: "computer-architecture",
+                text: "Computer architecture",
+                subjectCode: "21c321312",
+                icon: ComputerOutlined,
+            },
+            {
+                id: "OOPJ",
+                text: "OOPJ",
+                subjectCode: "21c321312",
+                icon: CodeOutlined,
+            },
+            {
+                id: "system-software",
+                text: "System Software",
+                subjectCode: "21c321312",
+                icon: ApiOutlined,
+            },
+            {
+                id: "dbms",
+                text: "DBMS",
+                subjectCode: "21c321312",
+                icon: StorageRounded,
+            },
+        ],
     },
     {
-        text: "Payments",
+        text: "Calender",
         type: "icon",
-        id: 8,
-        icon: PaymentRoundedIcon,
+        id: 4,
+        icon: CalendarMonthRoundedIcon,
     },
     {
-        text: "Feedback",
+        text: "Results",
         type: "icon",
         id: 2,
         icon: AssistantIcon,
@@ -46,18 +82,7 @@ const menuList: menuIn[] = [
         id: 3,
         icon: NoteAltRoundedIcon,
     },
-    {
-        text: "Calender",
-        type: "icon",
-        id: 4,
-        icon: CalendarMonthRoundedIcon,
-    },
-    {
-        text: "Drive",
-        type: "icon",
-        id: 5,
-        icon: FolderOpenRoundedIcon,
-    },
+
     {
         text: "Help",
         type: "icon",
@@ -65,10 +90,16 @@ const menuList: menuIn[] = [
         icon: HelpOutlineRoundedIcon,
     },
     {
-        text: "Hostel",
+        text: "Feedback",
         type: "icon",
-        id: 7,
-        icon: AirlineSeatIndividualSuiteRoundedIcon,
+        id: 2,
+        icon: AssistantIcon,
+    },
+    {
+        text: "Logout",
+        type: "icon",
+        id: 2,
+        icon: LogoutOutlined,
     },
 ];
 
