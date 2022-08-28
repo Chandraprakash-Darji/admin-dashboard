@@ -100,6 +100,7 @@ const SubjectList = ({ menu, drawerOpen }: Props) => {
                                 )
                             }
                             placement="right"
+                            key={m.id}
                         >
                             <ListItemButton
                                 className={`w-full p-0 rounded-xl overflow-hidden h-14 `}
