@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { useContext, useEffect, useRef, useState } from "react";
 import { ColorModeContext } from "../../utils/ToggleColorMode";
-import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar/Sidebar";
 
 const StyledInputbase = styled(InputBase)(() => ({
     input: {
