@@ -67,38 +67,38 @@ const menuList: menuIn[] = [
     {
         text: "Calender",
         type: "icon",
-        id: 4,
+        id: 2,
         icon: CalendarMonthRoundedIcon,
     },
     {
         text: "Results",
         type: "icon",
-        id: 2,
+        id: 3,
         icon: AssistantIcon,
     },
     {
         text: "Exam",
         type: "icon",
-        id: 3,
+        id:4,
         icon: NoteAltRoundedIcon,
     },
 
     {
         text: "Help",
         type: "icon",
-        id: 6,
+        id: 5,
         icon: HelpOutlineRoundedIcon,
     },
     {
         text: "Feedback",
         type: "icon",
-        id: 2,
+        id: 6,
         icon: AssistantIcon,
     },
     {
         text: "Logout",
         type: "icon",
-        id: 2,
+        id: 7,
         icon: LogoutOutlined,
     },
 ];
