@@ -57,7 +57,7 @@ const Sidebar = ({ width, setDrawerOpen, drawerOpen }: Props) => {
              * List of sidebar options.
              */}
             <List
-                className={`gap-1 flex flex-col ease-linear  transition-all `}
+                className={`gap-1 min-h-screen flex flex-col ease-linear transition-all pb-3`}
                 disablePadding
                 sx={{
                     width,
