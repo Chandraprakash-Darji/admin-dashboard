@@ -14,6 +14,16 @@
 
 - [ ] Dashboard
   - [ ] Sidebar
+    - [ ] Options
+      - [ ] Home
+      - [ ] Subjects
+        - [ ] Respective subjects
+      - [ ] Calender
+      - [ ] Results
+      - [ ] Gap
+      - [ ] Help
+      - [ ] Feedback
+      - [ ] Logout
   - [ ] NavBar
 - [ ] Login page
 - [ ] Register page
