@@ -10,7 +10,7 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
-import Logo from "../../../assets/icons/logo";
+import Logo from "../../../assets/icons/Logo";
 import useGetSidebarOptions from "../../../hooks/useGetSidebarOptions";
 import SideBarItem from "./SidebarItem";
 import UserProfile from "./UserProfile";
