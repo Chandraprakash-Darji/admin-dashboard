@@ -3,11 +3,10 @@ import {
     CodeOutlined,
     ComputerOutlined,
     LogoutOutlined,
-    StorageRounded,
+    StorageRounded
 } from "@mui/icons-material";
 import AssistantIcon from "@mui/icons-material/Assistant";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-import HelpOutlineRoundedIcon from "@mui/icons-material/HelpOutlineRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import NoteAltRoundedIcon from "@mui/icons-material/NoteAltRounded";
 import SchoolIcon from "@mui/icons-material/School";
@@ -79,22 +78,10 @@ const menuList: menuIn[] = [
     {
         text: "Exam",
         type: "icon",
-        id:4,
+        id: 4,
         icon: NoteAltRoundedIcon,
     },
 
-    {
-        text: "Help",
-        type: "icon",
-        id: 5,
-        icon: HelpOutlineRoundedIcon,
-    },
-    {
-        text: "Feedback",
-        type: "icon",
-        id: 6,
-        icon: AssistantIcon,
-    },
     {
         text: "Logout",
         type: "icon",
