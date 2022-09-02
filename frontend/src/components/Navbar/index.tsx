@@ -1,7 +1,4 @@
 import {
-    ChatRounded,
-    Fullscreen,
-    FullscreenExit,
     Menu as MenuIcon,
     NotificationsRounded,
     SearchRounded,
@@ -15,18 +12,13 @@ import {
     styled,
     Toolbar,
     Tooltip,
+    Typography,
+    useMediaQuery,
 } from "@mui/material";
-import { useContext, useEffect, useRef, useState } from "react";
-import { ColorModeContext } from "../../utils/ToggleColorMode";
+import { useEffect, useRef, useState } from "react";
+import FabMenu from "../FabMenu";
 import Sidebar from "./Sidebar";
-
-const StyledInputbase = styled(InputBase)(() => ({
-    input: {
-        "&::placeholder": {
-            color: "white",
-        },
-    },
-}));
+import ToggleSidebar from "./Sidebar/ToggleSidebar";
 
 const OpenedWidth = "300px";
 // Icon size -> 24 && paddingOnIcon -> 16 + 16 && paddingOnSIdebar -> 8 + 8
@@ -51,25 +43,28 @@ const StyledToolBar = styled(Toolbar, {
 const Navbar = () => {
     const [inputFocus, setInputFocus] = useState(false);
     const [searchVal, setSearchVal] = useState("");
-    const [fullScreen, setFullScreen] = useState(false);
-    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [drawerOpen, setDrawerOpen] = useState(true);
     const searchRef = useRef<HTMLInputElement | null>(null);
-    const { toggleColorMode } = useContext(ColorModeContext);
+    const isSM = useMediaQuery("(max-width: 600px)");
 
     useEffect(() => {
         inputFocus && searchRef.current && searchRef.current.focus();
     }, [inputFocus]);
 
     return (
-        <Box flex={1}>
-            <AppBar>
+        <Box flex={1} className="relative">
+            <AppBar
+                color="transparent"
+                sx={{ color: "text.primary" }}
+                elevation={0}
+            >
                 <StyledToolBar
                     open={drawerOpen}
                     className="items-center gap-2 min-h-[70px] transition-all duration-500 ease-out"
                 >
                     {/* Menu Icon */}
                     <>
-                        {drawerOpen || (
+                        {isSM && !drawerOpen && (
                             <Tooltip title="Menu" disableInteractive>
                                 <IconButton
                                     className="w-10 h-10"
@@ -80,19 +75,27 @@ const Navbar = () => {
                                 </IconButton>
                             </Tooltip>
                         )}
+                        {!isSM && (
+                            <Typography
+                                variant="h6"
+                                className="whitespace-nowrap font-bold tracking-wide"
+                            >
+                                Hey, Chandraprakash
+                            </Typography>
+                        )}
                     </>
-                    {/* SearchBar -> inputBox Hidden click then focus */}
+
+                    {/* SearchBar */}
                     <Tooltip title="Search" disableInteractive>
                         <Box
-                            className={`flex items-center rounded-full overflow-hidden transition-all duration-[400] shrink-0 0 ${
-                                inputFocus &&
-                                "bg-[#ffffff10] dark:bg-[#00000010] border border-dark/20 dark:border-white/20"
-                            }`}
+                            className={`flex items-center rounded-full overflow-hidden transition-all duration-[400ms] shrink-0 ml-auto`}
+                            sx={{
+                                bgcolor: "text.primary",
+                                color: "primary.contrastText",
+                            }}
                         >
-                            <StyledInputbase
-                                className={`text-white transition-all duration-300 tracking-wider ${
-                                    inputFocus ? "w-52 pl-4" : "w-0"
-                                }`}
+                            <InputBase
+                                className={`transition-all duration-300 tracking-wider w-52 pl-4`}
                                 placeholder="Search..."
                                 value={searchVal}
                                 onChange={(e) => setSearchVal(e.target.value)}
@@ -100,15 +103,12 @@ const Navbar = () => {
                                     if (searchVal === "") setInputFocus(false);
                                 }}
                                 inputRef={searchRef}
+                                sx={{
+                                    color: "primary.contrastText",
+                                }}
                             />
                             <IconButton
-                                onClick={() =>
-                                    setInputFocus((prev) => {
-                                        if (!prev) return true;
-                                        if (searchVal !== "") return true;
-                                        return false;
-                                    })
-                                }
+                                onClick={() => setInputFocus(true)}
                                 color="inherit"
                                 className="w-10 h-10"
                             >
@@ -116,40 +116,14 @@ const Navbar = () => {
                             </IconButton>
                         </Box>
                     </Tooltip>
-                    {/* IconButton -> Full Screen */}
-                    <Tooltip
-                        title="Full Screen temp(Dark mode)"
-                        disableInteractive
-                    >
-                        <IconButton
-                            onClick={() => {
-                                setFullScreen((p) => !p);
-                                toggleColorMode();
-                            }}
-                            color="inherit"
-                            className="w-10 h-10 hidden md:flex"
-                        >
-                            {fullScreen ? <Fullscreen /> : <FullscreenExit />}
-                        </IconButton>
-                    </Tooltip>
                     {/* Notification */}
                     <Tooltip title="Notification" disableInteractive>
                         <IconButton
                             onClick={() => {}}
                             color="inherit"
-                            className="w-10 h-10 ml-auto"
-                        >
-                            <NotificationsRounded />
-                        </IconButton>
-                    </Tooltip>
-                    {/* Chat */}
-                    <Tooltip title="Chat" disableInteractive>
-                        <IconButton
-                            onClick={() => {}}
-                            color="inherit"
                             className="w-10 h-10"
                         >
-                            <ChatRounded />
+                            <NotificationsRounded />
                         </IconButton>
                     </Tooltip>
                 </StyledToolBar>
@@ -159,6 +133,14 @@ const Navbar = () => {
                 setDrawerOpen={setDrawerOpen}
                 width={drawerOpen ? OpenedWidth : ClosedWidth}
             />
+            <FabMenu />
+            {isSM || (
+                <ToggleSidebar
+                    drawerOpen={drawerOpen}
+                    setDrawerOpen={setDrawerOpen}
+                    width={drawerOpen ? OpenedWidth : ClosedWidth}
+                />
+            )}
         </Box>
     );
 };

@@ -86,7 +86,7 @@ const Sidebar = ({ width, setDrawerOpen, drawerOpen }: Props) => {
                         </Tooltip>
                     )}
                     {/* Divider */}
-                    <Divider  className="absolute h-2 bottom-0 left-0 w-full" />
+                    <Divider className="absolute h-2 bottom-0 left-0 w-full" />
                 </ListSubheader>
                 {/* User Profile */}
                 <UserProfile drawerOpen={drawerOpen} />
