@@ -4,26 +4,16 @@ import Logo from "../../assets/icons/Logo";
 
 const Login = () => {
     return (
-        <Grid
-            container
-            className="h-screen over den text-inherit"
-            columns={{ xs: 1, md: 12 }}
-        >
-            <Grid item xs={0} md={4} lg={8}>
+        <Grid container className="h-screen overflow-hidden text-inherit">
+            <Grid item className="hidden md:block md:w-1/3 lg:w-1/2">
                 <img
                     src="/login/bg.jpg"
                     className="object-cover object-bottom h-screen w-full"
                     alt="background"
                 />
             </Grid>
-            <Grid
-                item
-                xs={12}
-                md={8}
-                lg={4}
-                className="h-screen flex justify-center items-center"
-            >
-                <Box className="w-[25rem] flex flex-col justify-center items-center">
+            <Grid item className="h-screen flex-1 flex justify-center items-center">
+                <Box className=" w-[25rem] flex flex-col justify-center items-center">
                     <Icon color="primary" className="w-28 h-28 mb-2">
                         <Logo />
                     </Icon>
