@@ -9,6 +9,7 @@ import {
 import { useContext, useState } from "react";
 import fabitems from "../../mocks/FabItems";
 import { ColorModeContext } from "../../utils/ToggleColorMode";
+
 const FabMenu = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -29,7 +30,7 @@ const FabMenu = () => {
         <Box sx={{ flexGrow: 1 }}>
             <SpeedDial
                 ariaLabel="SppedDial tooltip help/feedback/darkMode "
-                className="absolute bottom-4 right-4"
+                className="fixed bottom-4 right-4"
                 icon={<SpeedDialIcon />}
                 onClose={handleClose}
                 onOpen={handleOpen}
@@ -39,9 +40,12 @@ const FabMenu = () => {
                     return (
                         <SpeedDialAction
                             key={f.id}
-                            icon={<f.icon />}
+                            icon={<f.icon sx={{ color: "text.primary" }} />}
                             tooltipTitle={
-                                <Typography className="whitespace-nowrap">
+                                <Typography
+                                    color="text.primary"
+                                    className="whitespace-nowrap"
+                                >
                                     {f.text}
                                 </Typography>
                             }
