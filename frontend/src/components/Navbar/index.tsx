@@ -17,8 +17,8 @@ import {
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import FabMenu from "../FabMenu";
-import Sidebar from "./Sidebar";
-import ToggleSidebar from "./Sidebar/ToggleSidebar";
+import Sidebar from "../Sidebar";
+import ToggleSidebar from "../Sidebar/components/ToggleSidebar";
 
 const OpenedWidth = "300px";
 // Icon size -> 24 && paddingOnIcon -> 16 + 16 && paddingOnSIdebar -> 8 + 8
@@ -128,12 +128,15 @@ const Navbar = () => {
                     </Tooltip>
                 </StyledToolBar>
             </AppBar>
+            {/* Sidebar */}
             <Sidebar
                 drawerOpen={drawerOpen}
                 setDrawerOpen={setDrawerOpen}
                 width={drawerOpen ? OpenedWidth : ClosedWidth}
             />
+            {/* Fab Menu */}
             <FabMenu />
+            {/* Sidebar toggle */}
             {isSM || (
                 <ToggleSidebar
                     drawerOpen={drawerOpen}

@@ -43,15 +43,7 @@ const SideBarItem = ({ menu, drawerOpen }: SideBarItemProps) => {
                 title={drawerOpen ? "" : <Typography>{menu.text}</Typography>}
                 placement="right"
             >
-                <ListItemButton
-                    className="w-full p-0 rounded-xl overflow-hidden h-14 "
-                    sx={{
-                        "&:hover,&:focus-visible": {
-                            bgcolor: "primary.main",
-                            color: "primary.contrastText",
-                        },
-                    }}
-                >
+                <ListItemButton className="overflow-hidden h-14">
                     {/* Icon */}
                     <ListIcon icon={menu.icon} />
                     {/* Name */}
