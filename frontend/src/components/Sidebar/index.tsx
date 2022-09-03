@@ -1,5 +1,4 @@
 // Imports:
-import { ChevronLeft } from "@mui/icons-material";
 import {
     Divider,
     Drawer,
@@ -14,7 +13,6 @@ import Logo from "../../core/assets/icons/Logo";
 import useGetSidebarOptions from "../../hooks/useGetSidebarOptions";
 import SideBarItem from "./components/SidebarItem";
 import UserProfile from "./components/UserProfile";
- 
 
 type Props = {
     /**
@@ -73,19 +71,7 @@ const Sidebar = ({ width, setDrawerOpen, drawerOpen }: Props) => {
                             <Logo />
                         </IconButton>
                     </Tooltip>
-                    {/**
-                     * Close button for closing the sidebar
-                     */}
-                    {drawerOpen && (
-                        <Tooltip title="Close">
-                            <IconButton
-                                color="inherit"
-                                onClick={() => setDrawerOpen(false)}
-                            >
-                                <ChevronLeft />
-                            </IconButton>
-                        </Tooltip>
-                    )}
+
                     {/* Divider */}
                     <Divider className="absolute h-2 bottom-0 left-0 w-full" />
                 </ListSubheader>
