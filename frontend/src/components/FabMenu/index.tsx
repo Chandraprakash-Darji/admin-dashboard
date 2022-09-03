@@ -6,15 +6,15 @@ import {
     SpeedDialIcon,
     Typography,
 } from "@mui/material";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useSettings } from "../../core/contexts/Settings";
 import fabitems from "../../mocks/FabItems";
-import { ColorModeContext } from "../../utils/ToggleColorMode";
 
 const FabMenu = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const { toggleColorMode } = useContext(ColorModeContext);
+    const { toggleMode } = useSettings();
 
     const actions = [
         ...fabitems,
@@ -22,7 +22,7 @@ const FabMenu = () => {
             text: "Switch Mode",
             id: 3,
             icon: DarkMode,
-            onClick: () => toggleColorMode(),
+            onClick: () => toggleMode(),
         },
     ];
 
