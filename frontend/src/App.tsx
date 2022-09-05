@@ -1,6 +1,7 @@
 import { GlobalStyles, useTheme } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
-import { Dashboard, Login, Register } from "./pages";
+import Login from "./auth/pages/login";
+import { Dashboard } from "./pages";
 
 function App() {
     const theme = useTheme();
@@ -14,7 +15,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
+                {/* <Route path="register" element={<Register />} /> */}
                 <Route path="student/:id" element={<div>Student :id</div>} />
                 <Route
                     path="student/:id/portfolio"
